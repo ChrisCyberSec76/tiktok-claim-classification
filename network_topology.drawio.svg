@@ -1,0 +1,92 @@
+@startuml
+
+        package "TikTok Claims Classification Project" {
+        folder "data" {
+        folder "raw" {
+        [tiktok_dataset.csv]
+        }
+        folder "processed" {
+        [processed_data.csv]
+        [feature_matrix.csv]
+        }
+        }
+
+        folder "notebooks" {
+        [claims_classification.ipynb]
+        note right
+        Main analysis and
+        model development
+        end note
+        }
+
+        folder "src" {
+        folder "data_processing" {
+        [preprocess.py]
+        [clean_data.py]
+        note right of [preprocess.py]
+        Data cleaning and
+        transformation
+        end note
+        }
+
+        folder "feature_engineering" {
+        [feature_builder.py]
+        [encoders.py]
+        note right of [feature_builder.py]
+        Feature creation and
+        transformation
+        end note
+        }
+
+        folder "modeling" {
+        [train_model.py]
+        [evaluate_model.py]
+        note right of [train_model.py]
+        Model training and
+        hyperparameter tuning
+        end note
+        }
+
+        folder "utils" {
+        [helpers.py]
+        [config.py]
+        }
+        }
+
+        folder "models" {
+        [random_forest_model.pkl]
+        [xgboost_model.pkl]
+        note right
+        Saved trained models
+        end note
+        }
+
+        folder "tests" {
+        [test_preprocessing.py]
+        [test_features.py]
+        [test_models.py]
+        }
+
+        folder "docs" {
+        [README.md]
+        [requirements.txt]
+        note right
+        Project documentation
+        and dependencies
+        end note
+        }
+        }
+
+        ' Define relationships
+        [tiktok_dataset.csv] --> [preprocess.py]
+        [preprocess.py] --> [processed_data.csv]
+        [processed_data.csv] --> [feature_builder.py]
+        [feature_builder.py] --> [feature_matrix.csv]
+        [feature_matrix.csv] --> [train_model.py]
+        [train_model.py] --> [random_forest_model.pkl]
+        [train_model.py] --> [xgboost_model.pkl]
+        [claims_classification.ipynb] ..> [preprocess.py] : uses
+        [claims_classification.ipynb] ..> [feature_builder.py] : uses
+        [claims_classification.ipynb] ..> [train_model.py] : uses
+
+        @enduml
